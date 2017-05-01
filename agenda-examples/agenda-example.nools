@@ -1,0 +1,26 @@
+define Message{
+    constructor: function(name){
+        this.name = name;
+    }
+}
+
+rule "Agenda Group 1" {
+    agenda-group: "ag1";
+    when{
+        m : Message m.name === 'hello';
+    }
+    then{
+        m.name = "goodbye";
+        modify(m);
+    }
+}
+rule "Agenda Group 2" {
+    agenda-group: "ag2";
+    when{
+        m : Message m.name === 'goodbye';
+    }
+    then {
+        m.name = 'hello';
+        modify(m);
+    }
+}

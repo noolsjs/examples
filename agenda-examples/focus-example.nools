@@ -1,0 +1,54 @@
+define State{
+    constructor: function(name, state){
+        this.name = name;
+        this.state = state;
+    }
+}
+
+rule Bootstrap {
+    when{
+        a : State a.name == 'A' && a.state == 'NOT_RUN';
+    }
+    then{
+        a.state = 'FINISHED';
+        modify(a);
+    }
+}
+
+ 
+rule 'A to B' {
+    when{
+        a : State a.name == 'A' && a.state == 'FINISHED';
+        b : State b.name == 'B' && b.state == 'NOT_RUN';
+    }
+    then{
+        b.state = 'FINISHED';
+        modify(b);
+    }        
+}
+
+rule 'B to C' { 
+    agenda-group: 'B to C';
+    auto-focus: true;
+    when{
+        b: State b.name == 'B' && b.state == 'FINISHED';
+        c : State c.name == 'C' && c.state == 'NOT_RUN';
+    }
+    then{
+        c.state = 'FINISHED';
+        modify(c);
+        focus('B to D')
+    }
+}
+
+rule 'B to D' {
+    agenda-group: 'B to D';
+    when{
+        b: State b.name == 'B' && b.state == 'FINISHED';
+        d : State d.name == 'D' && d.state == 'NOT_RUN';
+    }
+    then{
+        d.state = 'FINISHED';
+        modify(d);
+    }        
+}

@@ -1,0 +1,36 @@
+{
+    "name": "nools-examples",
+    "version": "1.0.0",
+    "description": "Nools Examples",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "eslint": "./node_modules/eslint/bin/eslint.js agenda-examples/.",
+        "eslint-fix": "npm run eslint --fix",
+        "agenda": "npm run agenda:agenda-example && npm run agenda:agenda-programmatic-example && npm run agenda:focus-example",
+        "agenda:agenda-example": "npm run example agenda agenda-example",
+        "agenda:agenda-programmatic-example": "npm run example agenda agenda-programmatic-example",
+        "agenda:focus-example": "npm run example agenda focus-example",
+        "example": "node ./index"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/noolsjs/examples.git"
+    },
+    "author": "Doug Martin",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/noolsjs/examples/issues"
+    },
+    "homepage": "https://github.com/noolsjs/examples#readme",
+    "devDependencies": {
+        "eslint": "^3.19.0",
+        "eslint-config-airbnb": "^14.1.0",
+        "eslint-plugin-import": "^2.2.0",
+        "eslint-plugin-jsx-a11y": "^4.0.0",
+        "eslint-plugin-react": "^6.10.3"
+    },
+    "dependencies": {
+        "nools": "^0.4.4"
+    }
+}
