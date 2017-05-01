@@ -1,6 +1,10 @@
-# Agenda Example
+# Agenda Examples
 
 This set of examples revolves around the `agenda-group option`.
+
+* [`agenda-example`](#agenda-example)
+* [`agenda-programmatic-example`](#agenda-programmatic-example)
+* [`focus-example`](#focus-example)
 
 ## `agenda-example`
 
