@@ -13,7 +13,7 @@ const Message = flow.getDefined('message');
  * ```
  * agenda-example: Example 1 [ 'Agenda Group 1' ]
  * ```
- * @return {*|Promise.<TResult>}
+ * @return {*|Promise.<null>}
  */
 function example1() {
     const fired = [];
@@ -34,7 +34,7 @@ function example1() {
  * ```
  * agenda-example: Example 2 [ 'Agenda Group 2', 'Agenda Group 1' ]
  * ```
- * @return {*|Promise.<TResult>}
+ * @return {*|Promise.<null>}
  */
 function example2() {
     const fired = [];
@@ -56,7 +56,7 @@ function example2() {
  * ```
  * agenda-example: Example 3 [ 'Agenda Group 1', 'Agenda Group 2' ]
  * ```
- * @return {*|Promise.<TResult>}
+ * @return {*|Promise.<null>}
  */
 function example3() {
     const fired = [];

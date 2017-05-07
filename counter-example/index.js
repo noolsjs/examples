@@ -1,6 +1,5 @@
 'use strict';
 
-const _ = require('lodash');
 const nools = require('nools');
 
 const flow = nools.compile(require.resolve('./counter-example.nools'));
@@ -27,7 +26,7 @@ function example1(howHighToCount) {
 }
 
 module.exports = {
-    run(howHigh){
+    run(howHigh) {
         return example1(howHigh);
     },
 };

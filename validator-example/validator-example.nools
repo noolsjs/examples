@@ -1,0 +1,129 @@
+
+define User {
+
+    constructor: function(options){
+        this.id = options.id;
+        this.firstName = options.firstName;
+        this.lastName = options.lastName;
+        this.dob = options.dob;
+        this.email = options.email;
+    },
+
+    toString : function(){
+        return `User(id: ${this.id}, firstName: ${this.firstName}, lastName: ${this.lastName}, dob: ${this.dob ? this.dob.toISOString() : null}, email: ${this.email})`;
+    }
+}
+
+define ValidationError {
+    constructor: function(user, err){
+        this.user = user;
+        this.error = err;
+    }
+}
+
+function isEmailAddress(email){
+    return /^(?:[\w\!\#\$\%\&\'\*\+\-\/\=\?\^\`\{\|\}\~]+\.)*[\w\!\#\$\%\&\'\*\+\-\/\=\?\^\`\{\|\}\~]+@(?:(?:(?:[a-zA-Z0-9](?:[a-zA-Z0-9\-](?!\.)){0,61}[a-zA-Z0-9]?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9\-](?!$)){0,61}[a-zA-Z0-9]?)|(?:\[(?:(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\.){3}(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\]))$/.test(email);
+}
+
+rule 'Check First Name Required' {
+    when {
+        u : User !u.firstName;
+    }
+    then {
+        emit('validation-error', new ValidationError(u, 'First name is required'));
+    }
+}
+
+rule 'Check First Name No Numbers' {
+    when {
+        u : User (isString(u.firstName) and u.firstName like /[0-9]/);
+    }
+    then {
+        emit('validation-error', new ValidationError(u, 'First name is must not contain numbers'));
+    }
+}
+
+rule 'Check First Name Length' {
+    when {
+        u : User (isString(u.firstName) and u.firstName.length gt 10);
+    }
+    then {
+        emit('validation-error', new ValidationError(u, 'First name cannot be longer than 10 characters'));
+    }
+}
+
+
+rule 'Check Last Name Required' {
+    when {
+        u : User !u.lastName;
+    }
+    then {
+        emit('validation-error', new ValidationError(u, 'Last name is required'));
+    }
+}
+
+rule 'Check Last Name No Numbers' {
+    when {
+        u : User (isString(u.lastName) and u.lastName like /[0-9]/);
+    }
+    then {
+        emit('validation-error', new ValidationError(u, 'Last name is must not contain numbers'));
+    }
+}
+
+rule 'Check Last Name Length' {
+    when {
+        u : User (isString(u.lastName) and u.lastName.length gte 10);
+    }
+    then {
+        emit('validation-error', new ValidationError(u, 'Last name cannot be longer than 10 characters'));
+    }
+}
+
+
+rule 'Check Date Of Birth Required' {
+    when {
+        u : User isDate(u.dob) == false;
+    }
+    then {
+        emit('validation-error', new ValidationError(u, 'Date of birth is required'));
+    }
+}
+
+rule 'Check Date Of Birth Age To Young' {
+    when {
+        u : User isDate(u.dob) and u.dob gte yearsAgo(18);
+    }
+    then {
+        emit('validation-error', new ValidationError(u, 'Date Of Birth must be >= 18 years ago'));
+    }
+}
+
+rule 'Check Dob Age To Old' {
+    when {
+        u : User isDate(u.dob) and u.dob lte yearsAgo(100);
+    }
+    then {
+        emit('validation-error', new ValidationError(u, 'You cannot be older than 100 to use this app'));
+    }
+}
+
+rule 'Check Email Address' {
+    when {
+        u : User !isEmailAddress(u.email);
+    }
+    then {
+        emit('validation-error', new ValidationError(u, 'Invalid email address'));
+    }
+}
+
+rule 'Check Email Unique' {
+    when {
+        m1 : User isString(m1.email) {id:m1Id, email:m1Email};
+        m2 : User isString(m2.email) and m1Id neq m2.id and m2.email eq m1Email;
+    }
+    then {
+        emit('validation-error', new ValidationError(m2, 'Email is not unqiue'));
+    }
+}
+

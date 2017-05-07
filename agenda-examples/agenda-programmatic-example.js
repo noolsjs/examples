@@ -117,4 +117,4 @@ module.exports = {
             .then(() => example3())
             .then(() => example4());
     },
-}
+};

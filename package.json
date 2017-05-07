@@ -5,13 +5,14 @@
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "eslint": "./node_modules/eslint/bin/eslint.js agenda-examples/.",
+        "eslint": "./node_modules/eslint/bin/eslint.js agenda-examples/. counter-example/. validator-example/.",
         "eslint-fix": "npm run eslint --fix",
         "agenda": "npm run agenda:agenda-example && npm run agenda:agenda-programmatic-example && npm run agenda:focus-example",
         "agenda:agenda-example": "npm run example agenda agenda-example",
         "agenda:agenda-programmatic-example": "npm run example agenda agenda-programmatic-example",
         "agenda:focus-example": "npm run example agenda focus-example",
         "counter-example": "npm run example counter-example",
+        "validator-example": "npm run example validator-example",
         "example": "node ./index"
     },
     "repository": {

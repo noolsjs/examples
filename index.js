@@ -2,10 +2,12 @@
 
 const agendaExamples = require('./agenda-examples');
 const counterExample = require('./counter-example');
+const validatorExample = require('./validator-example');
 
 const examples = {
     agenda: agendaExamples,
     'counter-example': counterExample,
+    'validator-example': validatorExample,
 };
 
 function runExample(group, example) {
