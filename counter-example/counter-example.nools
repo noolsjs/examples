@@ -1,0 +1,51 @@
+
+define Counter {
+    count: 0,
+        constructor: function(count){
+        this.count = count;
+    }
+}
+
+rule "Bootstrap" {
+    when {
+        $howHigh: Number;
+        not($ctr: Counter);
+    }
+    then{
+        console.log("counter-example: Imma gonna count to %d!", $howHigh);
+        assert(new Counter(1));
+    }
+}
+
+rule "Done Counting" {
+    when {
+        $howHigh: Number;
+        $ctr: Counter $ctr.count == $howHigh;
+    }
+    then{
+        console.log("counter-example: Look ma! I counted to " + $ctr.count);
+        halt();
+    }
+}
+
+rule "Log Count" {
+    when{
+        $ctr: Counter $ctr.count % 1000 == 0 {count: $count}
+    }
+    then{
+        console.log("counter-example: Imma countin... %d", $count);
+        $ctr.count = $count + 1;
+        modify($ctr);
+    }
+}
+
+rule "Increment Counter" {
+    when{
+        $ctr: Counter {count: $count}
+    }
+    then{
+        $ctr.count = $count + 1;
+        modify($ctr);
+    }
+}
+
