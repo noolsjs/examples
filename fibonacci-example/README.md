@@ -1,6 +1,6 @@
 # Fibonacci Examples
 
-This set of examples revolves around the `agenda-group option`.
+ In these examples a [fibonacci](https://en.wikipedia.org/wiki/Fibonacci) calculator is created using `nools`.
 
 * [`fibonacci-dsl-example`](#fibonacci-dsl-example)
 * [`fibonacci-programmatic-example`](#fibonacci-programmatic-example)
@@ -41,7 +41,7 @@ Calculate // modifies f3 by setting the value to 5
 To run this example run the following command in the root of the project.
 
 ```sh
-npm run fibonacci:fibonacci-dsl-example
+npm run fibonacci:fibonacci-dsl-example [number=10]
 ```
 
 Expected Output:
@@ -53,7 +53,7 @@ fibonacci-dsl-example: Example 1 - [number=10] [result=55]
 ## `fibonacci-programmatic-example`
 
 ```sh
-npm run fibonacci:fibonacci-programmatic-example
+npm run fibonacci:fibonacci-programmatic-example [number=10]
 ```
 
 Expected Output:
