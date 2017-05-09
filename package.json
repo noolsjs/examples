@@ -15,6 +15,9 @@
         "fibonacci": "npm run fibonacci:fibonacci-dsl-example && npm run fibonacci:fibonacci-programmatic-example",
         "fibonacci:fibonacci-dsl-example": "npm run example fibonacci fibonacci-dsl-example",
         "fibonacci:fibonacci-programmatic-example": "npm run example fibonacci fibonacci-programmatic-example",
+        "hello-world": "npm run hello-world:hello-world-dsl-example && npm run hello-world:hello-world-programmatic-example",
+        "hello-world:hello-world-dsl-example": "npm run example hello-world hello-world-dsl-example",
+        "hello-world:hello-world-programmatic-example": "npm run example hello-world hello-world-programmatic-example",
         "validator-example": "npm run example validator-example",
         "example": "node ./index"
     },

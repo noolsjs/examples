@@ -1,0 +1,12 @@
+define Message{
+    message: null
+}
+
+rule HelloWorld {
+    when {
+        m: Message m.message == 'hello'
+    }
+    then {
+        console.log(`${m.message} world`);
+    }
+}
