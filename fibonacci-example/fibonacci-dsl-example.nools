@@ -1,0 +1,59 @@
+//Define our object classes, you can
+//also declare these outside of the nools
+//file by passing them into the compile method
+define Fibonacci {
+    value:-1,
+    sequence:null,
+
+     toString() {
+        return `Fibonacci(sequence:${this.sequence}, value:${this.value})`;
+     }
+}
+define Result {
+    result : -1,
+
+    toString() {
+         return `${this.result}`;
+    }
+}
+
+rule Recurse {
+    when {
+        //f1 is how you can reference the fact else where
+        f1 : Fibonacci f1.value == -1;
+        //you can use not or or methods in here
+        not(f : Fibonacci f.sequence == 1);
+    }
+    then {
+        assert(new Fibonacci({sequence : f1.sequence - 1}));
+    }
+}
+
+rule Bootstrap {
+   when {
+       f : Fibonacci (f.sequence == 1 || f.sequence == 2) && f.value == -1;
+   }
+   then{
+       f.value = 1;
+       modify(f);
+   }
+}
+
+rule Calculate {
+    when {
+        // find an instance with the value set
+        f1 : Fibonacci f1.value != -1 {sequence : s1};
+        // find another instance with the value set and the sequence equal to f1 sequnce + 1
+        f2 : Fibonacci f2.value != -1 && f2.sequence == s1 + 1 {sequence:s2};
+        // look for an un-calculated Fibonacci instance with the next logical seqence following f1 and f2/
+        f3 : Fibonacci f3.value == -1 && f3.sequence == s2 + 1;
+        r : Result
+    }
+    then {
+        // set the value to the previous two values added together
+        f3.value = f1.value + f2.value;
+        modify(f3);
+        r.result = f3.value;
+        modify(r);
+    }
+}

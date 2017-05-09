@@ -18,6 +18,7 @@ const flow = nools.compile(require.resolve('./counter-example.nools'));
  * counter is divisible by 1000.
  * 4. `Increment Counter` - This rule increments the counter.
  *
+ * @param {Number} [howHighToCount=10000] - The number to calculate the Fibonacci value of.
  * @return {Promise}
  */
 function example1(howHighToCount) {

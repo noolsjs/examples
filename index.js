@@ -2,11 +2,13 @@
 
 const agendaExamples = require('./agenda-examples');
 const counterExample = require('./counter-example');
+const fibonacciExample = require('./fibonacci-example');
 const validatorExample = require('./validator-example');
 
 const examples = {
     agenda: agendaExamples,
     'counter-example': counterExample,
+    fibonacci: fibonacciExample,
     'validator-example': validatorExample,
 };
 
